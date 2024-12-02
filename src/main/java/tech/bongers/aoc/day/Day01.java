@@ -10,11 +10,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Day01 {
     
     public static void main(final String[] args) {
-        final List<String> input = FileReaderUtil.getContentAsList("day01.txt");
+        final List<String> locations = FileReaderUtil.getContentAsList("day01.txt");
         final List<Integer> firstList = new ArrayList<>();
         final List<Integer> secondList = new ArrayList<>();
-        
-        input.forEach(line -> {
+
+        locations.forEach(line -> {
             final String[] splitLine = line.split("\\s+");
             
             firstList.add(Integer.parseInt(splitLine[0]));
