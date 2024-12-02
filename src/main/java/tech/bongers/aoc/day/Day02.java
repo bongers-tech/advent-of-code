@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ *  <a href="https://adventofcode.com/2024/day/2">2024 Day 02</a>
+ */
 public class Day02 {
 
     public static void main(final String[] args) {

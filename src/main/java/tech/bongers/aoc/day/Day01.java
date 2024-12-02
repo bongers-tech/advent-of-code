@@ -7,6 +7,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ *  <a href="https://adventofcode.com/2024/day/1">2024 Day 01</a>
+ */
 public class Day01 {
     
     public static void main(final String[] args) {
