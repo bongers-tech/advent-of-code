@@ -1,38 +1,43 @@
-package tech.bongers.aoc.day;
+package tech.bongers.aoc.aoc2024.day;
 
-import tech.bongers.aoc.util.FileReaderUtil;
+import tech.bongers.aoc.aoc2024.Year2024;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- *  <a href="https://adventofcode.com/2024/day/2">2024 Day 02</a>
+ * <a href="https://adventofcode.com/2024/day/2">2024 Day 02</a>
  */
-public class Day02 {
+public class Day02 extends Year2024 {
 
     public static void main(final String[] args) {
-        final List<String> reports = FileReaderUtil.getContentAsList("day02.txt");
+        new Day02().doPuzzle();
+    }
+
+    @Override
+    public void doPuzzle() {
+        final List<String> reports = getPuzzleInputForDay("02");
 
         calculateTotalSafeReports(reports);
         calculateTotalSafeReportsWithDampener(reports);
     }
 
-    private static void calculateTotalSafeReports(final List<String> reports) {
+    private void calculateTotalSafeReports(final List<String> reports) {
         final List<String> safeReports = reports
                 .stream()
-                .filter(Day02::levelDifferencesAreAtLeastOneAndAtMostThreeForReport)
-                .filter(Day02::levelAllIncreasingOrDecreasingForReport)
+                .filter(this::levelDifferencesAreAtLeastOneAndAtMostThreeForReport)
+                .filter(this::levelAllIncreasingOrDecreasingForReport)
                 .toList();
 
-        System.out.println("Safe reports: " + safeReports.size());
+        log("Safe reports: {}", safeReports.size());
     }
 
-    private static void calculateTotalSafeReportsWithDampener(final List<String> reports) {
+    private void calculateTotalSafeReportsWithDampener(final List<String> reports) {
         final List<String> safeReports = reports
                 .stream()
-                .filter(Day02::levelDifferencesAreAtLeastOneAndAtMostThreeForReport)
-                .filter(Day02::levelAllIncreasingOrDecreasingForReport)
+                .filter(this::levelDifferencesAreAtLeastOneAndAtMostThreeForReport)
+                .filter(this::levelAllIncreasingOrDecreasingForReport)
                 .toList();
 
         final List<String> unsafeReports = new ArrayList<>(reports);
@@ -40,23 +45,23 @@ public class Day02 {
 
         final List<String> safeReportsWithDampener = unsafeReports
                 .stream()
-                .filter(Day02::applyDampenerToUnsafeReport)
+                .filter(this::applyDampenerToUnsafeReport)
                 .toList();
 
-        System.out.println("Safe reports with dampener: " + (safeReports.size() + safeReportsWithDampener.size()));
+        log("Safe reports with dampener: {}", safeReports.size() + safeReportsWithDampener.size());
     }
 
-    private static boolean levelDifferencesAreAtLeastOneAndAtMostThreeForReport(final String report) {
+    private boolean levelDifferencesAreAtLeastOneAndAtMostThreeForReport(final String report) {
         final String[] levels = report.split("\\s+");
         return levelDifferencesAreAtLeastOneAndAtMostThree(levels);
     }
 
-    private static boolean levelAllIncreasingOrDecreasingForReport(final String report) {
+    private boolean levelAllIncreasingOrDecreasingForReport(final String report) {
         final String[] levels = report.split("\\s+");
         return levelAllIncreasingOrDecreasing(levels);
     }
 
-    private static boolean applyDampenerToUnsafeReport(final String report) {
+    private boolean applyDampenerToUnsafeReport(final String report) {
         final String[] levels = report.split("\\s+");
         for (int i = 0; i < levels.length; i++) {
             final String[] dampenedLevels = getDampenedLevels(levels, i);
@@ -67,7 +72,7 @@ public class Day02 {
         return false;
     }
 
-    private static boolean levelDifferencesAreAtLeastOneAndAtMostThree(final String[] levels) {
+    private boolean levelDifferencesAreAtLeastOneAndAtMostThree(final String[] levels) {
         for (int i = 0; i < levels.length - 1; i++) {
             int currentLevel = Integer.parseInt(levels[i]);
             int nextLevel = Integer.parseInt(levels[i + 1]);
@@ -80,7 +85,7 @@ public class Day02 {
         return true;
     }
 
-    private static boolean levelAllIncreasingOrDecreasing(final String[] levels) {
+    private boolean levelAllIncreasingOrDecreasing(final String[] levels) {
         final Integer[] parsedLevels = Arrays.stream(levels)
                 .map(Integer::parseInt)
                 .toArray(Integer[]::new);
@@ -88,7 +93,7 @@ public class Day02 {
         return isAllIncreasing(parsedLevels) || isAllDecreasing(parsedLevels);
     }
 
-    private static boolean isAllIncreasing(final Integer[] levels) {
+    private boolean isAllIncreasing(final Integer[] levels) {
         for (int i = 1; i < levels.length; i++) {
             if (levels[i] <= levels[i - 1]) {
                 return false;
@@ -97,7 +102,7 @@ public class Day02 {
         return true;
     }
 
-    private static boolean isAllDecreasing(final Integer[] levels) {
+    private boolean isAllDecreasing(final Integer[] levels) {
         for (int i = 1; i < levels.length; i++) {
             if (levels[i] >= levels[i - 1]) {
                 return false;
@@ -105,8 +110,8 @@ public class Day02 {
         }
         return true;
     }
-    
-    private static String[] getDampenedLevels(final String[] levels, int indexToRemove) {
+
+    private String[] getDampenedLevels(final String[] levels, int indexToRemove) {
         final List<String> dampenedLevels = new ArrayList<>(Arrays.asList(levels));
         dampenedLevels.remove(indexToRemove);
         return dampenedLevels.toArray(String[]::new);

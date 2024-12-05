@@ -1,6 +1,6 @@
-package tech.bongers.aoc.day;
+package tech.bongers.aoc.aoc2024.day;
 
-import tech.bongers.aoc.util.FileReaderUtil;
+import tech.bongers.aoc.aoc2024.Year2024;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -8,10 +8,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * <a href="https://adventofcode.com/2024/day/4">2024 Day 04</a>
  */
-public class Day04 {
+public class Day04 extends Year2024 {
 
     public static void main(final String[] args) {
-        final List<String> wordPuzzle = FileReaderUtil.getContentAsList("day04.txt");
+        new Day04().doPuzzle();
+    }
+
+    @Override
+    public void doPuzzle() {
+        final List<String> wordPuzzle = getPuzzleInputForDay("04");
 
         final int numberOfRows = wordPuzzle.size();
         final int numberOfColumns = wordPuzzle.getFirst().split("").length;
@@ -26,7 +31,7 @@ public class Day04 {
         findTotalOccurrencesOfCrossedMas(puzzleGrid, numberOfRows, numberOfColumns);
     }
 
-    private static void findTotalOccurrencesOfXmas(final String[][] puzzleGrid, final int numberOfRows, final int numberOfColumns) {
+    private void findTotalOccurrencesOfXmas(final String[][] puzzleGrid, final int numberOfRows, final int numberOfColumns) {
         final AtomicInteger totalOccurrences = new AtomicInteger();
 
         for (int x = 0; x < numberOfRows; x++) {
@@ -100,10 +105,10 @@ public class Day04 {
             }
         }
 
-        System.out.println("Total occurrences of XMAS: " + totalOccurrences.get());
+        log("Total occurrences of XMAS: {}", totalOccurrences.get());
     }
 
-    private static void findTotalOccurrencesOfCrossedMas(final String[][] puzzleGrid, final int numberOfRows, final int numberOfColumns) {
+    private void findTotalOccurrencesOfCrossedMas(final String[][] puzzleGrid, final int numberOfRows, final int numberOfColumns) {
         final AtomicInteger totalOccurrences = new AtomicInteger();
 
         for (int x = 0; x < numberOfRows; x++) {
@@ -119,10 +124,10 @@ public class Day04 {
             }
         }
 
-        System.out.println("Total occurrences of Crossed MAS: " + totalOccurrences.get());
+        log("Total occurrences of Crossed MAS: {}", totalOccurrences.get());
     }
 
-    private static void checkOppositeCorners(final String[][] puzzleGrid, final int x, final int y, final AtomicInteger totalOccurrences) {
+    private void checkOppositeCorners(final String[][] puzzleGrid, final int x, final int y, final AtomicInteger totalOccurrences) {
         if (puzzleGrid[x + 1][y - 1].equals("M") && puzzleGrid[x - 1][y + 1].equals("S")) {
             totalOccurrences.getAndIncrement();
         }

@@ -1,6 +1,6 @@
-package tech.bongers.aoc.day;
+package tech.bongers.aoc.aoc2024.day;
 
-import tech.bongers.aoc.util.FileReaderUtil;
+import tech.bongers.aoc.aoc2024.Year2024;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -12,22 +12,27 @@ import static java.util.regex.Pattern.compile;
 /**
  * <a href="https://adventofcode.com/2024/day/3">2024 Day 03</a>
  */
-public class Day03 {
-
+public class Day03 extends Year2024 {
     private static final String MULTIPLICATION_REGEX = "mul\\(\\d{1,3},\\d{1,3}\\)";
+
     private static final String ENABLED_MULTIPLICATION_REGEX = MULTIPLICATION_REGEX + "|do\\(\\)|don't\\(\\)";
 
     private static final String ENABLE_MULTIPLY = "do()";
     private static final String DISABLE_MULTIPLY = "don't()";
 
     public static void main(final String[] args) {
-        final List<String> memory = FileReaderUtil.getContentAsList("day03.txt");
+        new Day03().doPuzzle();
+    }
+
+    @Override
+    public void doPuzzle() {
+        final List<String> memory = getPuzzleInputForDay("03");
 
         calculateTotalOfMultiplications(memory);
         calculateTotalOfEnabledMultiplications(memory);
     }
 
-    private static void calculateTotalOfMultiplications(final List<String> memory) {
+    private void calculateTotalOfMultiplications(final List<String> memory) {
         final AtomicInteger total = new AtomicInteger();
         for (String instruction : memory) {
             final Matcher matcher = compile(MULTIPLICATION_REGEX).matcher(instruction);
@@ -35,10 +40,10 @@ public class Day03 {
                 processMultiplication(matcher.group(0), total);
             }
         }
-        System.out.println("Total Sum of Multiplications: " + total.get());
+        log("Total Sum of Multiplications: {}", total.get());
     }
 
-    private static void calculateTotalOfEnabledMultiplications(final List<String> memory) {
+    private void calculateTotalOfEnabledMultiplications(final List<String> memory) {
         final AtomicInteger total = new AtomicInteger();
         final AtomicBoolean enabledMultiplication = new AtomicBoolean(true);
 
@@ -55,10 +60,10 @@ public class Day03 {
                 }
             }
         }
-        System.out.println("Total Sum of Enabled Multiplications: " + total.get());
+        log("Total Sum of Enabled Multiplications: {}", total.get());
     }
 
-    private static void processMultiplication(final String statement, final AtomicInteger total) {
+    private void processMultiplication(final String statement, final AtomicInteger total) {
         final String[] numbers = statement.replace("mul(", "").replace(")", "").replace("do(", "").replace("don\\'t(", "").split(",");
         total.getAndAdd(Integer.parseInt(numbers[0]) * Integer.parseInt(numbers[1]));
     }
