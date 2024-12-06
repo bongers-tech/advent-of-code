@@ -5,6 +5,9 @@ import tech.bongers.aoc.aoc2015.Year2015;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * <a href="https://adventofcode.com/2015/day/2">2015 Day 02</a>
+ */
 public class Day02 extends Year2015 {
 
     public static void main(final String[] args) {

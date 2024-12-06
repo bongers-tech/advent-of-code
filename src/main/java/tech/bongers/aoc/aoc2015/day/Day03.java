@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * <a href="https://adventofcode.com/2015/day/3">2015 Day 03</a>
+ */
 public class Day03 extends Year2015 {
 
     public static void main(final String[] args) {

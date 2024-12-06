@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * <a href="https://adventofcode.com/2015/day/1">2015 Day 01</a>
+ */
 public class Day01 extends Year2015 {
 
     public static void main(final String[] args) {
